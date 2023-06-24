@@ -1,6 +1,9 @@
 from reportlab.pdfgen import canvas
 import random
 import sys
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+
 
 # 定义生成题目的函数
 def generate_questions(num):
@@ -21,11 +24,17 @@ def generate_questions(num):
 
 # 定义生成PDF文件的函数
 def generate_pdf(num_pages):
+    pdfmetrics.registerFont(TTFont('Courier', 'Courier.ttf'))
+    pdfmetrics.registerFont(TTFont('SimHei', 'SimHei.ttf'))
     filename = 'a.pdf'
     doc = canvas.Canvas(filename)
+    #doc.setFont('Courier', 12)
+    doc.setFont('SimHei', 12)
     for i in range(num_pages):
+        #doc.setFont('Courier', 12)
+        doc.setFont('SimHei', 12)
         questions = generate_questions(50)
-        doc.drawString(50, 800, f'第{i+1}页')
+        doc.drawString(50, 800, f'{i+22:02d}')
         y = 750
         for j in range(50):
             if j < len(questions):
